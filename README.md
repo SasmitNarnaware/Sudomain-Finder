@@ -135,15 +135,88 @@ where.exe nmap
 
 `subfinder` and `httpx` are required. `katana`, `gau` and `nmap` are optional depending on the selected options.
 
+### Linux setup
+
+On Debian or Ubuntu, install Python, virtual-environment support, Go and the optional Nmap package:
+
+```bash
+sudo apt update
+sudo apt install -y python3 python3-venv golang-go nmap
+```
+
+Create the virtual environment and install the Python requirements:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+Install the Go-based reconnaissance tools:
+
+```bash
+go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+go install github.com/projectdiscovery/katana/cmd/katana@latest
+go install github.com/lc/gau/v2/cmd/gau@latest
+```
+
+Add the Go binary directory to the current shell's `PATH`:
+
+```bash
+export PATH="$PATH:$(go env GOPATH)/bin"
+```
+
+To keep that setting for future Bash sessions:
+
+```bash
+echo 'export PATH="$PATH:$(go env GOPATH)/bin"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Verify the tools:
+
+```bash
+command -v subfinder
+command -v httpx
+command -v katana
+command -v gau
+nmap --version
+```
+
+On Fedora, replace the Debian package command with:
+
+```bash
+sudo dnf install -y python3 python3-pip golang nmap
+```
+
+On Arch Linux, use:
+
+```bash
+sudo pacman -S --needed python go nmap
+```
+
 ## Quick start
 
 Run the default low-noise bug-bounty workflow:
+
+```bash
+python3 main.py example.com
+```
+
+On Windows, use:
 
 ```powershell
 python main.py example.com
 ```
 
 The domain may also be entered interactively:
+
+```bash
+python3 main.py
+```
+
+On Windows, use:
 
 ```powershell
 python main.py
