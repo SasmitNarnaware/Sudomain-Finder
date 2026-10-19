@@ -1,0 +1,32 @@
+# Python dependencies
+# -------------------
+# This project uses Python's standard library only; there are no pip packages
+# required for main.py.
+#
+# External reconnaissance tools cannot be installed by pip because they are
+# Go binaries or a native Nmap installation. Run the commands below in
+# PowerShell after installing Go and adding its bin directory to PATH.
+
+# Required tools
+# --------------
+go install github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+go install github.com/projectdiscovery/httpx/cmd/httpx@latest
+
+# Optional URL discovery tools
+# ----------------------------
+go install github.com/projectdiscovery/katana/cmd/katana@latest
+go install github.com/lc/gau/v2/cmd/gau@latest
+
+# Optional Nmap service detection
+# --------------------------------
+# Install Nmap separately from https://nmap.org/download.html
+# Windows package-manager alternatives:
+winget install --id Insecure.Nmap -e
+choco install nmap -y
+
+# After installation, verify every tool is available on PATH:
+where.exe subfinder
+where.exe httpx
+where.exe katana
+where.exe gau
+nmap --version
